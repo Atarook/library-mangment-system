@@ -1,25 +1,26 @@
 #!/bin/bash
 
-## installing jenkins
 
-sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+## Start
+echo "Start"
+
+########################################################################
+## Installing Jenkins
+
+wget -O /usr/share/keyrings/jenkins-keyring.asc \
   https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update
-sudo apt-get install jenkins -y
+apt-get update
+apt-get install jenkins -y
 
 
 
-sudo apt update
-sudo apt install fontconfig openjdk-17-jre -y
+apt update
+apt install fontconfig openjdk-17-jre -y
 
-## Configuring jenkins
-
-# sudo service jenkins stop 
-
-# sudo chown ubuntu /var/lib/jenkins/config.xml
+## Configuring Jenkins
 
 # echo "<?xml version='1.1' encoding='UTF-8'?>
 # <hudson>
@@ -59,11 +60,15 @@ sudo apt install fontconfig openjdk-17-jre -y
 #   <nodeRenameMigrationNeeded>false</nodeRenameMigrationNeeded>" > /var/lib/jenkins/config.xml
 
 
-sudo service jenkins restart
+service jenkins restart
 
-## Installing nginx
-sudo apt install nginx -y
-sudo chown ubuntu:ubuntu /etc/nginx/nginx.conf
+########################################################################
+
+
+## Installing Nginx
+apt install nginx -y
+
+## Configuring Nginx
 echo "user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
@@ -81,17 +86,58 @@ http {
         }
   }
 }" > /etc/nginx/nginx.conf
-sudo service nginx restart
+service nginx restart
 
-## installing docker
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh ./get-docker.sh --dry-run
+##########################################################################
 
-sudo groupadd docker
-sudo gpasswd -a $USER docker
+## Installing Docker
+
+sudo apt-get update
+sudo apt-get install ca-certificates curl -y
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+chmod 777 /var/run/docker.sock
+
+groupadd docker
+gpasswd -a jenkins docker
+gpasswd -a ubuntu docker
 
 
-## installing pip
-sudo apt install python3-pip -y
 
+## Installing PIP
+apt install python3-pip -y
+
+
+## Installing Terraform 
+
+snap install terraform --classic
+terraform --version
+
+## Installing AWS CLI
+apt install curl unzip -y
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+./aws/install
+
+## Catch All service In System
+ls /lib/systemd/system/[j-d-n]*.service
+
+
+## Checking Status
+service nginx status
+service jenkins status
+service docker status
+
+## Finish
+echo "Finished"
 
