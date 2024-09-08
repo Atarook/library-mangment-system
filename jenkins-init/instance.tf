@@ -1,6 +1,6 @@
 resource "aws_instance" "jenkins-instance" {
   ami           = "ami-03cc8375791cb8bcf"
-  instance_type = "t2.micro"
+  instance_type = "t3a.micro"
   subnet_id     = aws_subnet.jenkins_public_subnet.id
   user_data     = file("init.sh")
 
