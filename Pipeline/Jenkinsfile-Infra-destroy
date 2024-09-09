@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+
+    environment {
+        TF_VERSION = '1.9.5'
+        TF_WORKSPACE = 'default'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/Atarook/library-mangment-system.git']])
+
+            }
+        }
+
+        stage('Terraform Init Infrastructure') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                    dir('terraform') {
+                        sh 'terraform init'
+                    }
+                }
+            }
+        }
+
+        stage('Terraform Destroy Infrastructure') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                    dir('terraform') {
+                        sh 'terraform destroy -auto-approve'
+                    }
+                }
+            }
+        }
+
+
+        stage('Terraform Init (S3)') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                    dir('terraform/s3') {
+                        sh 'terraform init'
+                    }
+                }
+            }
+        }
+
+        stage('Terraform Destroy (S3)') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                    dir('terraform/s3') {
+                        sh 'terraform destroy -auto-approve'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished'
+        }
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
+}
