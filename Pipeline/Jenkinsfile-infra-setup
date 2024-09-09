@@ -18,7 +18,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
                     dir('terraform/s3') {
-                        bat 'terraform init'
+                        sh 'terraform init'
                     }
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
                     dir('terraform/s3') {
-                        bat 'terraform plan -out=tfplan'
+                        sh 'terraform plan -out tfplan.out'
                     }
                 }
             }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
                     dir('terraform/s3') {
-                        bat 'terraform apply tfplan'
+                        sh 'terraform apply "tfplan.out"'
                     }
                 }
             }
@@ -48,7 +48,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
                     dir('terraform') {
-                        bat 'terraform init'
+                        sh 'terraform init'
                     }
                 }
             }
@@ -58,7 +58,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
                     dir('terraform') {
-                        bat 'terraform plan -out=tfplan'
+                        sh 'terraform plan -out tfplan.out'
                     }
                 }
             }
@@ -68,7 +68,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
                     dir('terraform') {
-                        bat 'terraform apply tfplan'
+                        sh 'terraform apply "tfplan.out"'
                     }
                 }
             }
