@@ -16,7 +16,7 @@ pipeline {
 
         stage('Terraform Init Infrastructure') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
                     dir('terraform') {
                         sh 'terraform init'
                     }
@@ -26,7 +26,7 @@ pipeline {
 
         stage('Terraform Destroy Infrastructure') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
                     dir('terraform') {
                         sh 'terraform destroy -auto-approve'
                     }
@@ -37,8 +37,8 @@ pipeline {
 
         stage('Terraform Init (S3)') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
-                    dir('terraform/s3') {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
+                    dir('../setup-pipeline/terraform/s3') {
                         sh 'terraform init'
                     }
                 }
@@ -47,8 +47,8 @@ pipeline {
 
         stage('Terraform Destroy (S3)') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
-                    dir('terraform/s3') {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
+                    dir('../setup-pipeline/terraform/s3') {
                         sh 'terraform destroy -auto-approve'
                     }
                 }

@@ -10,13 +10,12 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/Atarook/library-mangment-system.git']])
-
             }
         }
 
         stage('Terraform Init (S3)') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
                     dir('terraform/s3') {
                         sh 'terraform init'
                     }
@@ -26,7 +25,7 @@ pipeline {
 
         stage('Terraform Plan (S3)') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
                     dir('terraform/s3') {
                         sh 'terraform plan -out tfplan.out'
                     }
@@ -36,7 +35,7 @@ pipeline {
 
         stage('Terraform Apply (S3)') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
                     dir('terraform/s3') {
                         sh 'terraform apply "tfplan.out"'
                     }
@@ -46,7 +45,7 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
                     dir('terraform') {
                         sh 'terraform init'
                     }
@@ -56,20 +55,36 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
                     dir('terraform') {
                         sh 'terraform plan -out tfplan.out'
                     }
                 }
             }
         }
-
         stage('Terraform Apply') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '657ca1d7-e669-483d-a216-1e509df1ce44']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
                     dir('terraform') {
                         sh 'terraform apply "tfplan.out"'
                     }
+                }
+            }
+        }
+        stage('Connect Kubectl with Out Cluster'){
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
+                    sh 'aws eks update-kubeconfig --name team4-eks-cluster --region eu-west-1'
+                    sh 'kubectl get nodes'
+                }
+            }
+        }
+        stage('Install CNI'){
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
+                    sh 'kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.18"'
+                    sh 'sleep 30'
+                    sh 'kubectl get pods -A'
                 }
             }
         }
