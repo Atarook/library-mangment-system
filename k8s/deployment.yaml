@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-container
-        image: atarook/ly:v1
+        image: IMAGE_PLACEHOLDER
         volumeMounts:
         - mountPath: /app/instance
           name: my-volume
