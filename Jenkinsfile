@@ -58,6 +58,7 @@ pipeline {
                     sh 'kubectl apply -f ./k8s/pvc.yaml'
                     sh 'kubectl apply -f ./k8s/deployment.yaml'
                     sh 'kubectl apply -f ./k8s/service.yaml'
+                    sh 'sleep 20'
                     sh 'kubectl get services -o wide'
                 }
             }
