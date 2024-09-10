@@ -115,7 +115,7 @@ resource "aws_iam_role_policy_attachment" "eks_node_group_FullAccess" {
 
 # Attach the Amazon EBS CSI Driver Policy to the IAM role
 resource "aws_iam_role_policy_attachment" "eks_node_group_ebs_csi" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEBSCSIDriverPolicy"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
   role       = aws_iam_role.eks_node_group.name
 }
 

@@ -15,6 +15,7 @@ spec:
       containers:
       - name: my-container
         image: IMAGE_PLACEHOLDER
+        # image: ahmedkamal200427400/team4:3
         volumeMounts:
         - mountPath: /app/instance
           name: my-volume

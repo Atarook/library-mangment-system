@@ -52,39 +52,13 @@ pipeline {
                 }
             }
         }
-
-        stage('Terraform Plan') {
-            steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
-                    dir('terraform') {
-                        sh 'terraform plan -out tfplan.out'
-                    }
-                }
-            }
-        }
         stage('Terraform Apply') {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
                     dir('terraform') {
-                        sh 'terraform apply "tfplan.out"'
+                        sh 'sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"'
+                        sh 'terraform apply --auto-approve'
                     }
-                }
-            }
-        }
-        stage('Connect Kubectl with Out Cluster'){
-            steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
-                    sh 'aws eks update-kubeconfig --name team4-eks-cluster --region eu-west-1'
-                    sh 'kubectl get nodes'
-                }
-            }
-        }
-        stage('Install CNI'){
-            steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
-                    sh 'kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.18"'
-                    sh 'sleep 30'
-                    sh 'kubectl get pods -A'
                 }
             }
         }
