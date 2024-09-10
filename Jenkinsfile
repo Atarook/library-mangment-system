@@ -3,12 +3,14 @@ pipeline {
 
     environment {
 
-         dockerhub = 'dockerhub-credentials'
+         dockerhub = 'docker-config'
+         aws = 'aws-config'
+         github = 'github-config'
     }
     stages {
         stage('Hello') {
             steps {
-                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/Atarook/library-mangment-system.git']])
+                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-config', url: 'https://github.com/Atarook/library-mangment-system.git']])
                 sh 'ls -l'
             }
         }
@@ -50,7 +52,7 @@ pipeline {
 
         stage("Apply Change") {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-config']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: aws]]) {
                     sh 'aws eks update-kubeconfig --name team4-eks-cluster --region eu-west-1'
                     sh 'kubectl apply -f ./k8s/pv.yaml'
                     sh 'kubectl apply -f ./k8s/pvc.yaml'
