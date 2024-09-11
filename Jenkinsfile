@@ -1,12 +1,13 @@
 pipeline {
     agent any
 
+
     environment {
         dockerhub = 'docker-config'
         aws = 'aws-config'
         github = 'github-config'
         IMAGE_NAME = "ahmedkamal18/team4:${env.BUILD_NUMBER}"
-        // SONAR_SCANNER_HOME = tool 'sonar'
+        scannerHome = tool 'sonar'
     }
 
     stages {
@@ -17,16 +18,31 @@ pipeline {
             }
         }
         
-        // stage('SonarQube Analysis') {
+        stage('SonarQube Analysis') {
+            steps {
+                // Run SonarQube analysis
+                withSonarQubeEnv('sonar') {
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=my-project -Dsonar.sources=./"
+                    sh """
+                        ${env.scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=my_project_key \
+                        -Dsonar.projectName='My Project' \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources=. \
+                        -Dsonar.language=python \
+                        -Dsonar.login=${env.SONAR_AUTH_TOKEN} \
+                        -X
+                    """
+                }
+            }
+        }
+
+        // stage('Quality Gate') {
         //     steps {
-        //         withSonarQubeEnv('sonar') {
-        //             sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
-        //                 -Dsonar.projectKey=my_project_key \
-        //                 -Dsonar.projectName='My Project' \
-        //                 -Dsonar.projectVersion=1.0 \
-        //                 -Dsonar.sources= ./
-        //                 -Dsonar.host.url=http://localhost:9000 \
-        //                 -Dsonar.login=squ_5a2746ee04493cd7fd972f500a949906ec1dd7f3"
+        //         script {
+        //             timeout(time: 1, unit: 'MINUTES') {
+        //                 waitForQualityGate abortPipeline: true
+        //             }
         //         }
         //     }
         // }
