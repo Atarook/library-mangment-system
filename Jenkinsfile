@@ -6,7 +6,7 @@ pipeline {
         aws = 'aws-config'
         github = 'github-config'
         IMAGE_NAME = "ahmedkamal18/team4:${env.BUILD_NUMBER}"
-        SONAR_SCANNER_HOME = tool 'sonar'
+        // SONAR_SCANNER_HOME = tool 'sonar'
     }
 
     stages {
@@ -17,19 +17,19 @@ pipeline {
             }
         }
         
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('sonar') {
-                    sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=my_project_key \
-                        -Dsonar.projectName='My Project' \
-                        -Dsonar.projectVersion=1.0 \
-                        -Dsonar.sources= ./
-                        -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.login=squ_5a2746ee04493cd7fd972f500a949906ec1dd7f3"
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('sonar') {
+        //             sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
+        //                 -Dsonar.projectKey=my_project_key \
+        //                 -Dsonar.projectName='My Project' \
+        //                 -Dsonar.projectVersion=1.0 \
+        //                 -Dsonar.sources= ./
+        //                 -Dsonar.host.url=http://localhost:9000 \
+        //                 -Dsonar.login=squ_5a2746ee04493cd7fd972f500a949906ec1dd7f3"
+        //         }
+        //     }
+        // }
         
         stage('Setup AWS CLI') {
             steps {
