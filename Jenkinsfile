@@ -94,7 +94,7 @@ pipeline {
             }
         }
         
-        stage("Apply Change") {
+        stage("Deploy Website") {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: aws]]) {
                     sh 'aws eks update-kubeconfig --name team4-eks-cluster --region eu-west-1'
@@ -107,6 +107,36 @@ pipeline {
                 }
             }
         }
+
+        stages {
+            stage('Apply Prometheus and Grafana Setup') {
+                steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: aws]]) {
+                        sh 'aws eks update-kubeconfig --name team4-eks-cluster --region eu-west-1'
+
+                        // Apply the namespace YAML
+                        sh 'kubectl apply -f ./monitoring/namespace.yaml'
+
+                         // Deploy Prometheus
+                        sh 'kubectl apply -f ./monitoring/prometheus-configmap.yaml'
+                        sh 'kubectl apply -f ./monitoring/prometheus-pvc.yaml'
+                        sh 'kubectl apply -f ./monitoring/prometheus-deployment.yaml'
+                        sh 'kubectl apply -f ./monitoring/prometheus-service.yaml'
+
+                        // Deploy Grafana
+                        sh 'kubectl apply -f ./monitoring/grafana-secret.yaml'
+                        sh 'kubectl apply -f ./monitoring/grafana-pvc.yaml'
+                        sh 'kubectl apply -f ./monitoring/grafana-deployment.yaml'
+                        sh 'kubectl apply -f ./monitoring/grafana-service.yaml'
+
+                        // Wait for services to start
+                        sh 'sleep 20'
+                        sh 'kubectl get services -n monitoring -o wide'
+                    }
+                }
+            }
+        }
+
     }
 
     post {
@@ -124,6 +154,23 @@ pipeline {
                         sh 'kubectl delete -f ./k8s/service.yaml'
                         sh 'kubectl delete -f ./k8s/pvc.yaml'
                         sh 'kubectl delete -f ./k8s/pv.yaml'
+
+                        // Delete Prometheus resources
+                        sh 'kubectl delete -f ./monitoring/prometheus-deployment.yaml'
+                        sh 'kubectl delete -f ./monitoring/prometheus-service.yaml'
+                        sh 'kubectl delete -f ./monitoring/prometheus-pvc.yaml'
+                        sh 'kubectl delete -f ./monitoring/prometheus-configmap.yaml'
+
+                        // Delete Grafana resources
+                        sh 'kubectl delete -f ./monitoring/grafana-deployment.yaml'
+                        sh 'kubectl delete -f ./monitoring/grafana-service.yaml'
+                        sh 'kubectl delete -f ./monitoring/grafana-pvc.yaml'
+                        sh 'kubectl delete -f ./monitoring/grafana-secret.yaml'
+
+                        // Delete the namespace
+                        sh 'kubectl delete namespace monitoring'
+
+                        echo "Cleanup completed."
                     } catch (Exception e) {
                         echo "Failed to cleanup Kubernetes resources: ${e.getMessage()}"
                     }
