@@ -1,6 +1,6 @@
-## BM Project 🔥
+# BM Project 🔥
 Here is A complete CI CD pipeline project supported with the required infrastructure for the AWS cloud
-### Tools used 🧰
+## Tools used 🧰
 > Jenkins
 
 > Python Flask
@@ -18,10 +18,10 @@ Here is A complete CI CD pipeline project supported with the required infrastruc
 > Kubernetes
 
 
-## Our Design
+# Our Design
 ![image](https://github.com/user-attachments/assets/7652ca3c-5549-4c83-8b2d-67160ffd28a3)
-## Let's explain our code
-### Jenkins-init ( Dir )
+# Let's explain our code
+## Jenkins-init ( Dir )
 - this directory is for IaC for Jenkins EC2 instance mainly, but it is also supported with
    * AWS CLI
    * SonarQube running on the instance
@@ -41,7 +41,7 @@ Here is A complete CI CD pipeline project supported with the required infrastruc
 
 - In the end, all the configurations done in Jenkins are one-time configurations (like installing plugins and setting credentials and pipelines), so we didn't count them as time-consuming jobs
 
-### Terraform ( Dir )
+## Terraform ( Dir )
 - This directory is the IaC of our main infrastructure
 - We used S3 storage for storing the state of our IaC, 😆 in fact, This helped us a lot.
 
@@ -61,8 +61,31 @@ Here is A complete CI CD pipeline project supported with the required infrastruc
   ![image](https://github.com/user-attachments/assets/5cd2c63b-75b0-4bf1-8e2b-1d43e7b5c03d)
 
   * and this is how we managed to attach volumes successfully
-### K8S ( Dir )
+## K8S ( Dir )
 ![image](https://github.com/user-attachments/assets/85c6bbbc-0337-4132-89f3-70621a836785)
 
-    
+- This Directory contains our important 4 files
+    * pv.yaml >> for storage class ( 🚀 yes, we applied dynamic provisioning, 🪄 our volumes are created on demand)
+    * pvc.yaml >> this is the claim, connection between deployment and volumes
+    * deployment.yaml >> our dynamic pods, we typed this file in a specific way that helps as in the CD pipeline
+    * service.yaml >> our 🪨 load balancer
+- Here we showed our Skills in working with Kubernetes.
+
+## Pipeline ( Dir )
+- Although this is a one-time task, we wanted to show our pipeline creation skills 🥇.
+- Jenkinsfile-infra-setup : Creates our pipeline
+![WhatsApp Image 2024-09-11 at 11 18 54 PM](https://github.com/user-attachments/assets/d2ed2d8f-c293-4502-afb7-9e4d77d067db)
+
+- Jenkinsfile-Infra-destroy : Destroys our pipeline 😬
+
+## Dockerfile && .dockerignore
+- We created a simple DockerFile for containerizing our application and to publish it easily to the registry
+
+![image](https://github.com/user-attachments/assets/6e1e28c4-5c16-40fb-b418-f554bfd49afe)
+
+  
+- We tried to minimize and optimize the size of the docker image as we can, so we used ".dockerignore" file
+
+  ![image](https://github.com/user-attachments/assets/63f8a61b-b5f9-4110-bf3e-48ecb6cc4bca)
+
 
