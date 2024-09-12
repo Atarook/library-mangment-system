@@ -1,12 +1,20 @@
 # BM Project 🔥
 Here is A complete CI CD pipeline project supported with the required infrastructure for the AWS cloud
 
-# Demo Video 
+# Demo Pipeline Video 🎆 
 - Here is the summary of our project, we supported our pipeline with a web hook from GitHub to Jenkins EC2 instance
   
 
 
 https://github.com/user-attachments/assets/1aca5483-ae9f-4a86-a1f2-3db5ac61450b
+
+# Demo Monitoring Video 🚀
+
+
+
+https://github.com/user-attachments/assets/262f2d4f-9b7e-4342-9fc2-3d31c4d24345
+
+
 
 
 ## Tools used 🧰
@@ -18,6 +26,7 @@ https://github.com/user-attachments/assets/1aca5483-ae9f-4a86-a1f2-3db5ac61450b
 [![aws-cli][aws-cli]][aws-cli-url] [![nginx][nginx]][nginx-url] 
 [![kubectl][kubectl]][kubectl-url] [![pip][pip]][pip-url]
 [![python][python]][python-url] [![linux][linux]][linux-url] [![bash][bash]][bash-url]
+[![prometheus][prometheus]][prometheus-url] [![grafana][grafana]][grafana-url]
 
 [jenkins]: https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white
 [jenkins-url]: https://www.jenkins.io/
@@ -63,6 +72,12 @@ https://github.com/user-attachments/assets/1aca5483-ae9f-4a86-a1f2-3db5ac61450b
 
 [bash]: https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white
 [bash-url]: https://www.gnu.org/software/bash/
+
+[prometheus]: https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white
+[prometheus-url]: https://prometheus.io/
+
+[grafana]: https://img.shields.io/badge/Grafana-F46825?style=for-the-badge&logo=grafana&logoColor=white
+[grafana-url]: https://grafana.com/
 
 # Our Design
 ![image](https://github.com/user-attachments/assets/7652ca3c-5549-4c83-8b2d-67160ffd28a3)
@@ -150,8 +165,26 @@ https://github.com/user-attachments/assets/1aca5483-ae9f-4a86-a1f2-3db5ac61450b
   * Change Deployment.yaml File according to the image name on the registry 🛳️
   * Apply those changes to our EKS cluster on AWS 🌩️
   * Finished ♾️
-- How is our pipeline optimized? is deletes the image built from Jenkins EC2 to save resources. 🪗
+- How is our pipeline optimized? it deletes the image built from Jenkins EC2 to save resources. 🪗
 
+# Monitoring
+* Disk Usage Monitoring 💿
+  ![WhatsApp Image 2024-09-12 at 7 24 42 PM](https://github.com/user-attachments/assets/e30ba302-53f1-4cb5-8871-e4846742b5ce)
+
+* Memory RAM monitoring 📝
+  ![WhatsApp Image 2024-09-12 at 7 24 42 PM (1)](https://github.com/user-attachments/assets/6580251c-747d-4f70-9839-448827025f40)
+
+* CPU Utilization monitoring 💻
+  ![WhatsApp Image 2024-09-12 at 7 17 11 PM](https://github.com/user-attachments/assets/637d7f9f-fb65-4cea-8cd3-76287c1d7e0c)
+
+* I/O monitoring 🖱️
+  ![WhatsApp Image 2024-09-12 at 7 17 10 PM](https://github.com/user-attachments/assets/3bc99455-c7fb-418d-bac7-25836bf27e8f)
+
+* Network traffic monitoring 👋
+ ![WhatsApp Image 2024-09-12 at 7 17 10 PM (1)](https://github.com/user-attachments/assets/35a4cc95-d167-4431-be2d-09fc6962cb3e)
+
+
+  
 # Contributors
 <a href="https://github.com/Atarook/library-mangment-system/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Atarook/library-mangment-system" />
