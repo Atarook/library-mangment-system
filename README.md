@@ -10,11 +10,15 @@ https://github.com/user-attachments/assets/1aca5483-ae9f-4a86-a1f2-3db5ac61450b
 
 
 ## Tools used 🧰
+## Tools & Technologies
 
 [![jenkins][jenkins]][jenkins-url] [![flask][flask]][flask-url] 
 [![sqlite][sqlite]][sqlite-url] [![terraform][terraform]][terraform-url]
 [![sonarqube][sonarqube]][sonarqube-url] [![aws][aws]][aws-url] 
 [![docker][docker]][docker-url] [![kubernetes][kubernetes]][kubernetes-url]
+[![aws-cli][aws-cli]][aws-cli-url] [![nginx][nginx]][nginx-url] 
+[![kubectl][kubectl]][kubectl-url] [![pip][pip]][pip-url]
+[![python][python]][python-url] [![linux][linux]][linux-url] [![bash][bash]][bash-url]
 
 [jenkins]: https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white
 [jenkins-url]: https://www.jenkins.io/
@@ -40,6 +44,26 @@ https://github.com/user-attachments/assets/1aca5483-ae9f-4a86-a1f2-3db5ac61450b
 [kubernetes]: https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white
 [kubernetes-url]: https://kubernetes.io/
 
+[aws-cli]: https://img.shields.io/badge/AWS%20CLI-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white
+[aws-cli-url]: https://aws.amazon.com/cli/
+
+[nginx]: https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white
+[nginx-url]: https://www.nginx.com/
+
+[kubectl]: https://img.shields.io/badge/Kubectl-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white
+[kubectl-url]: https://kubernetes.io/docs/reference/kubectl/
+
+[pip]: https://img.shields.io/badge/Pip-3776AB?style=for-the-badge&logo=pypi&logoColor=white
+[pip-url]: https://pip.pypa.io/en/stable/
+
+[python]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
+[python-url]: https://www.python.org/
+
+[linux]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
+[linux-url]: https://www.linux.org/
+
+[bash]: https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white
+[bash-url]: https://www.gnu.org/software/bash/
 
 # Our Design
 ![image](https://github.com/user-attachments/assets/7652ca3c-5549-4c83-8b2d-67160ffd28a3)
