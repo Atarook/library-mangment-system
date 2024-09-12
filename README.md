@@ -1,5 +1,14 @@
 # BM Project 🔥
 Here is A complete CI CD pipeline project supported with the required infrastructure for the AWS cloud
+
+# Demo Video 
+- Here is the summary of our project, we supported our pipeline with a web hook from GitHub to Jenkins EC2 instance
+  
+
+
+https://github.com/user-attachments/assets/1aca5483-ae9f-4a86-a1f2-3db5ac61450b
+
+
 ## Tools used 🧰
 > Jenkins
 
@@ -104,5 +113,11 @@ Here is A complete CI CD pipeline project supported with the required infrastruc
   * Change Deployment.yaml File according to the image name on the registry 🛳️
   * Apply those changes to our EKS cluster on AWS 🌩️
   * Finished ♾️
+- How is our pipeline optimized? is deletes the image built from Jenkins EC2 to save resources. 🪗
+
+# Contributors
+<a href="https://github.com/Atarook/library-mangment-system/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Atarook/library-mangment-system" />
+</a>
 
 
