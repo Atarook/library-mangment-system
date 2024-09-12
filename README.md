@@ -10,21 +10,35 @@ https://github.com/user-attachments/assets/1aca5483-ae9f-4a86-a1f2-3db5ac61450b
 
 
 ## Tools used 🧰
-> Jenkins
 
-> Python Flask
+[![jenkins][jenkins]][jenkins-url] [![flask][flask]][flask-url] 
+[![sqlite][sqlite]][sqlite-url] [![terraform][terraform]][terraform-url]
+[![sonarqube][sonarqube]][sonarqube-url] [![aws][aws]][aws-url] 
+[![docker][docker]][docker-url] [![kubernetes][kubernetes]][kubernetes-url]
 
-> Sqlite
+[jenkins]: https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white
+[jenkins-url]: https://www.jenkins.io/
 
-> Terraform
+[flask]: https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white
+[flask-url]: https://flask.palletsprojects.com/
 
-> SonarQube
+[sqlite]: https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white
+[sqlite-url]: https://www.sqlite.org/
 
-> AWS
+[terraform]: https://img.shields.io/badge/Terraform-623CE4?style=for-the-badge&logo=terraform&logoColor=white
+[terraform-url]: https://www.terraform.io/
 
-> Docker
+[sonarqube]: https://img.shields.io/badge/SonarQube-4E9BCD?style=for-the-badge&logo=sonarqube&logoColor=white
+[sonarqube-url]: https://www.sonarqube.org/
 
-> Kubernetes
+[aws]: https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white
+[aws-url]: https://aws.amazon.com/
+
+[docker]: https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white
+[docker-url]: https://www.docker.com/
+
+[kubernetes]: https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white
+[kubernetes-url]: https://kubernetes.io/
 
 
 # Our Design
