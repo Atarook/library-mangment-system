@@ -89,3 +89,20 @@ Here is A complete CI CD pipeline project supported with the required infrastruc
   ![image](https://github.com/user-attachments/assets/63f8a61b-b5f9-4110-bf3e-48ecb6cc4bca)
 
 
+# Our Pipeline 💘
+- An optimized automated pipeline supported with lead approval
+
+  ![WhatsApp Image 2024-09-12 at 2 10 08 AM](https://github.com/user-attachments/assets/a9bd1a43-75e7-4b05-bc0f-c663aaaee310)
+
+- What does our pipeline do?
+  * Checkout code from GitHub repo ☑️
+  * Apply Quality Assurance on it using SonarQube ☑️
+
+    ![WhatsApp Image 2024-09-12 at 2 00 44 AM](https://github.com/user-attachments/assets/b6d7ba79-7844-47d0-b260-16b085a4e403)
+
+  * Build DockerFile and Push it to DockerHub 🐬
+  * Change Deployment.yaml File according to the image name on the registry 🛳️
+  * Apply those changes to our EKS cluster on AWS 🌩️
+  * Finished ♾️
+
+
