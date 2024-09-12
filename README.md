@@ -4,5 +4,7 @@ If it doesn't work use python app.py.
 
 Running on http://localhost:5000/ or http://127.0.0.1:5000
 
+....
+
 
 ehrab ya 3ali
