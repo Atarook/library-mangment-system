@@ -10,7 +10,6 @@ https://github.com/user-attachments/assets/1aca5483-ae9f-4a86-a1f2-3db5ac61450b
 
 
 ## Tools used 🧰
-## Tools & Technologies
 
 [![jenkins][jenkins]][jenkins-url] [![flask][flask]][flask-url] 
 [![sqlite][sqlite]][sqlite-url] [![terraform][terraform]][terraform-url]
